@@ -1165,9 +1165,9 @@ class BrewFile:
             return
 
         # Check repository name and add git@github.com: if necessary
-        if (re.match("git://", self.opt["repo"]) is None and
-                re.match("git@", self.opt["repo"]) is None and
-                re.match("https?://", self.opt["repo"]) is None):
+        if (not self.opt["repo"].startswith("git://") and
+                not self.opt["repo"].startswith("git@") and
+                not self.opt["repo"].startswith("http")):
             self.opt["repo"] = "git@github.com:" + self.opt["repo"]
 
         # Set Brewfile in the repository
@@ -1187,6 +1187,13 @@ class BrewFile:
             self.clone_repo(noinit)
 
     def check_gitconfig(self):
+        if (self.opt["repo"].startswith("git://") or
+                self.opt["repo"].startswith("http")):
+            self.info(
+                "You are using repository of %s" % self.opt["repo"] +
+                "\nUse git protocol (git@...) to push your Brewfile update.",
+                0)
+            return False
         name = self.proc("git config user.name", False, False, False, True)[1]
         email = self.proc(
             "git config user.email", False, False, False, True)[1]
