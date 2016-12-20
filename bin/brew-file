@@ -2797,11 +2797,11 @@ class BrewFile:
 
         # Set BREWFILE repository
         if self.opt["command"] == "set_repo":
-            self.set_brewfile_repo()
+            self.set_brewfile_repo(noinit=False)
             sys.exit(0)
 
         # Change brewfile if it is repository's one.
-        self.check_repo()
+        self.check_repo(noinit=True)
 
         # Do pull/push for the repository.
         if self.opt["command"] in ["pull", "push"]:
