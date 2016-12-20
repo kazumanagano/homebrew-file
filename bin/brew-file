@@ -998,7 +998,30 @@ class BrewFile:
         return self.input_dir() + "/" +\
             self.user_name() + "_" + self.repo_name() + "/" + self.input_file()
 
-    def clone_repo(self):
+    def init_repo(self):
+        os.chdir(self.brewinfo.get_dir())
+        branches = self.proc("git branch", False, False, True, True)[1]
+        if len(branches) != 0:
+            return
+
+        self.info("# Initialize the repository with README.md/Brewfile.", 1)
+        self.info("$ cd " + self.brewinfo.get_dir(), 1)
+        os.chdir(self.brewinfo.get_dir())
+        f = open("README.md", "w")
+        f.write("# " + self.repo_name() + "\n\n"
+                "Package list for [homebrew](http://brew.sh/).\n\n"
+                "Managed by "
+                "[homebrew-file](https://github.com/rcmdnk/homebrew-file).")
+        f.close()
+        open(self.brewinfo.get_file(), "a").close()
+
+        if self.check_gitconfig():
+            self.proc("git add -A")
+            self.proc(["git", "commit", "-m",
+                       "\"Prepared by " + __prog__ + "\""])
+            self.proc("git push -u origin master")
+
+    def clone_repo(self, noinit=True):
         ret = self.proc("git clone " + self.opt["repo"] + " \"" +
                         self.brewinfo.get_dir() + "\"",
                         True, True, False)[0]
@@ -1009,7 +1032,17 @@ class BrewFile:
                 "    $ " + __prog__ + " set_repo", 0)
             sys.exit(ret)
 
-    def check_github_repo(self):  # pragma: no cover
+        self.init_repo()
+
+        # Initialize
+        if not noinit:
+            ans = self.ask_yn(
+                "Do you want to initialize from installed packages?")
+            if ans:
+                self.initialize(False)
+                self.repomgr("push")
+
+    def check_github_repo(self, noinit=True):  # pragma: no cover
         """helper to check and create GitHub repository."""
         try:
             from urllib2 import urlopen, HTTPError
