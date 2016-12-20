@@ -1050,9 +1050,7 @@ class BrewFile:
             from urllib.request import urlopen
             from urllib.error import HTTPError
 
-        repo_name = self.opt["repo"].split("/")[-1].split(".git")[0]
-        user_name = self.opt["repo"].split("/")[-2].split(":")[-1]
-        url = "https://github.com/" + user_name + "/" + repo_name
+        url = "https://github.com/" + self.user_name() + "/" + self.repo_name()
 
         # Check if the repository already exists or not.
         exist_repo = True
