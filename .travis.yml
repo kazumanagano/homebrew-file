@@ -70,7 +70,7 @@ install:
   - python --version
   - hash -r
   - python --version
-  - /usr/local/bin/python --version
+  - '/usr/local/bin/python --version || :'
   - '[ "$PYTHON_VERSION" = "python2" ] &&  export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"|| :'
   - '[ "$PYTHON_VERSION" = "python2" ] &&  pip install virtualenv|| :'
   - '[ "$PYTHON_VERSION" = "python2" ] &&  virtualenv -p python2 py_env|| :'
@@ -109,4 +109,6 @@ script:
   - coverage run --parallel-mode $exe init -V 2 -y
   - which hg
   - ls /usr/local/opt/mercurial/bin/hg
+  - brew rm --ignore-dependencies  mercurial
+  - coverage run --parallel-mode $exe init -V 2 -y
 
