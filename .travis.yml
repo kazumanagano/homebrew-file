@@ -99,7 +99,7 @@ script:
   - mkdir -p $(dirname "$brewfile")
   - touch "$brewfile"
   - brew list
-  - coverage run --parallel-mode $exe init -y
+  - coverage run --parallel-mode $exe init -V 2 -y
   - which hg
   - ls /usr/local/opt/mercurial/bin/hg
 

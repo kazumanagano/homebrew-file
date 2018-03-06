@@ -3081,6 +3081,7 @@ class BrewFile:
 
 
 def main():
+    print('main')
     # Prepare BrewFile
     b = BrewFile()
 
