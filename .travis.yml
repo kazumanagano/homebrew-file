@@ -63,8 +63,9 @@ install:
   - rm -rf ../$testrepo
   - which python
   - python --version
+  - 'brew rm python || :'
+  - 'brew rm python2 || :'
   - 'brew install $PYTHON_VERSION || :'
-  - 'brew upgrade $PYTHON_VERSION || :'
   - which python
   - python --version
   - '[ "$PYTHON_VERSION" = "python2" ] &&  export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"|| :'
