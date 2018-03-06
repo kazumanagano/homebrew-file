@@ -63,8 +63,8 @@ install:
   - rm -rf ../$testrepo
   - which python
   - python --version
-  - 'brew rm python || :'
-  - 'brew rm python2 || :'
+  - 'brew rm --ignore-dependencies python || :'
+  - 'brew rm --ignore-dependencies python2 || :'
   - 'brew install $PYTHON_VERSION || :'
   - which python
   - python --version
