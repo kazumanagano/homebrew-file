@@ -65,6 +65,8 @@ install:
   - python --version
   - 'brew install $PYTHON_VERSION || :'
   - 'brew upgrade $PYTHON_VERSION || :'
+  - which python
+  - python --version
   - '[ "$PYTHON_VERSION" = "python2" ] &&  export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"|| :'
   - '[ "$PYTHON_VERSION" = "python2" ] &&  pip install virtualenv|| :'
   - '[ "$PYTHON_VERSION" = "python2" ] &&  virtualenv -p python2 py_env|| :'
