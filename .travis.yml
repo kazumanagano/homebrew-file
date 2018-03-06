@@ -29,7 +29,7 @@ env:
     #- coveralls=python-coveralls
     - CONFIGDIR="$HOME/.config/brewfile"
   matrix:
-    - PYTHON_VERSION="python"
+    - PYTHON_VERSION="python2"
     - PYTHON_VERSION="python3"
 before_install:
   - echo $TRAVIS_PULL_REQUEST
@@ -65,9 +65,10 @@ install:
   - python --version
   - 'brew install $PYTHON_VERSION || :'
   - 'brew upgrade $PYTHON_VERSION || :'
-  - '[ "$PYTHON_VERSION" = "python" ] &&  pip install virtualenv|| :'
-  - '[ "$PYTHON_VERSION" = "python" ] &&  virtualenv -p python2 py_env|| :'
-  - '[ "$PYTHON_VERSION" = "python3" ] &&  python3 -m venv py_env|| :'
+  - '[ "$PYTHON_VERSION" = "python2" ] &&  export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"|| :'
+  - '[ "$PYTHON_VERSION" = "python2" ] &&  pip install virtualenv|| :'
+  - '[ "$PYTHON_VERSION" = "python2" ] &&  virtualenv -p python2 py_env|| :'
+  - '[ "$PYTHON_VERSION" = "python3" ] &&  python -m venv py_env|| :'
   - source py_env/bin/activate
   - python --version
   - which python
