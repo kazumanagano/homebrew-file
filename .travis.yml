@@ -63,6 +63,7 @@ install:
   - rm -rf ../$testrepo
   - which python
   - python --version
+  - 'brew rm --ignore-dependencies  mercurial || :'
   - 'brew rm --ignore-dependencies python || :'
   - 'brew rm --ignore-dependencies python2 || :'
   - 'brew install $PYTHON_VERSION || :'
@@ -73,7 +74,7 @@ install:
   - '/usr/local/bin/python --version || :'
   - '[ "$PYTHON_VERSION" = "python2" ] &&  export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"|| :'
   - '[ "$PYTHON_VERSION" = "python2" ] &&  pip install virtualenv|| :'
-  - '[ "$PYTHON_VERSION" = "python2" ] &&  virtualenv -p python2 py_env|| :'
+  - '[ "$PYTHON_VERSION" = "python2" ] &&  virtualenv -p python py_env|| :'
   - '[ "$PYTHON_VERSION" = "python3" ] &&  python -m venv py_env|| :'
   - source py_env/bin/activate
   - python --version
@@ -109,6 +110,5 @@ script:
   - coverage run --parallel-mode $exe init -V 2 -y
   - which hg
   - ls /usr/local/opt/mercurial/bin/hg
-  - brew rm --ignore-dependencies  mercurial
   - coverage run --parallel-mode $exe init -V 2 -y
 
