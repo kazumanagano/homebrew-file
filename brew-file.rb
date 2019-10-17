@@ -2,7 +2,7 @@ class BrewFile < Formula
   desc "Brewfile manager for Homebrew."
   homepage "https://github.com/kazumanagano/homebrew-file/"
   url "https://github.com/kazumanagano/homebrew-file/archive/v7.0.3.tar.gz"
-  sha256 "3dd25b699d4208907da1d6969f531b0a21efe363c2b9d252efc531a6426da832"
+  sha256 "ef6370500aea8994e03d0b5d0880ee39d5052f8119bdfb19dfdb93bc5d5247f5"
 
   head "https://github.com/kazumanagano/homebrew-file.git"
 
