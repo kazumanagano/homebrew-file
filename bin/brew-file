@@ -651,7 +651,7 @@ class BrewInfo:
             pack_split = pack.split()
             pid = pack_split[0]
             name = pack_split[1:]
-            return "'" + ' '.join(name) + "', id: " + pid
+            return "'" + '_'.join(name) + "', id: " + pid
         else:
             return pack
 
